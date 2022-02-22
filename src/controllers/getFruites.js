@@ -6,7 +6,8 @@ const getFruites = (req, res) => {
     .then((data) => data.splice(0, 6))
     .then((data) => {
       res.send(data);
-    });
+    })
+    .catch((err) => res.status(404).send(err));
 };
 
 module.exports = getFruites;

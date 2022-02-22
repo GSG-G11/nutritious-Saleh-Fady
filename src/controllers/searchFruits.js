@@ -1,4 +1,4 @@
-const fetch = require("node-fetch");
+const fetch = require('node-fetch');
 
 const searchFruits = (req, res) => {
   const fruitName = req.body.name;
@@ -20,8 +20,8 @@ const searchFruits = (req, res) => {
         res.send(obj);
       }
     })
-    .catch((err)=>{
-        res.status(404).send(err);
+    .catch((err) => {
+      res.status(404).send(err);
     });
 };
 module.exports = searchFruits;
