@@ -1,6 +1,6 @@
 const oneElementGetter = (sellector) => document.querySelector(sellector);
 const url = 'http://localhost:3000/getFruites';
-const body = oneElementGetter('body');
+const container = oneElementGetter('.container');
 
 const elementCreator = (name) => document.createElement(name);
 
@@ -38,18 +38,26 @@ const lisCreator = (nutritions) => {
 const cardCreator = (data, image) => {
   const card = elementCreator('div');
   card.setAttribute('class', 'card');
+  const cardImage = elementCreator('div');
+  cardImage.setAttribute('class', 'card-image');
   const img = imageCreator(image);
+  img.setAttribute('class', 'image');
   const ul = elementCreator('ul');
+  ul.setAttribute('class', 'list');
+  const h3 = elementWithValue('h3' , data.name);
+  h3.setAttribute('class', 'fruit-name');
   const lis = lisCreator(data.nutritions);
   appendArrayOfElements(ul, lis);
-  appendElement(card, img);
+  appendElement(cardImage, img);
+  appendElement(card, cardImage);
+  appendElement(card, h3);
   appendElement(card, ul);
   return card;
 };
 const renderFruits = (data, image) => {
   console.log(data);
   const card = cardCreator(data, image);
-  appendElement(body, card);
+  appendElement(container, card);
 };
 
 fetchFrute(url, renderFruits);
