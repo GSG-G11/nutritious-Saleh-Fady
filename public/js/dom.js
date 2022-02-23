@@ -1,7 +1,8 @@
 const oneElementGetter = (sellector) => document.querySelector(sellector);
-const url = 'http://localhost:3000/getFruites';
+const url = '/getFruites';
 const container = oneElementGetter('.container');
-
+const form = oneElementGetter('.form');
+const input = oneElementGetter('.input');
 const elementCreator = (name) => document.createElement(name);
 
 const elementWithValue = (name, value) => {
@@ -27,7 +28,7 @@ const lisCreator = (nutritions) => {
   const li1 = elementWithValue('li', `calories: ${nutritions.calories}`);
   const li2 = elementWithValue(
     'li',
-    `carbohydrates: ${nutritions.carbohydrates}`,
+    `carbohydrates: ${nutritions.carbohydrates}`
   );
   const li3 = elementWithValue('li', `fat: ${nutritions.fat}`);
   const li4 = elementWithValue('li', `protein: ${nutritions.protein}`);
@@ -44,7 +45,7 @@ const cardCreator = (data, image) => {
   img.setAttribute('class', 'image');
   const ul = elementCreator('ul');
   ul.setAttribute('class', 'list');
-  const h3 = elementWithValue('h3' , data.name);
+  const h3 = elementWithValue('h3', data.name);
   h3.setAttribute('class', 'fruit-name');
   const lis = lisCreator(data.nutritions);
   appendArrayOfElements(ul, lis);
@@ -55,9 +56,22 @@ const cardCreator = (data, image) => {
   return card;
 };
 const renderFruits = (data, image) => {
-  console.log(data);
   const card = cardCreator(data, image);
   appendElement(container, card);
 };
 
 fetchFrute(url, renderFruits);
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  container.textContent = '';
+  searchFruit('/search', input.value, (response) => {
+    const { data, image } = response;
+    if (data.error) {
+      container.textContent = '';
+      container.textContent = `Sorry we couldnt find any fruit with this name ${input.value}`;
+    } else {
+      renderFruits(data, image);
+    }
+  });
+});
