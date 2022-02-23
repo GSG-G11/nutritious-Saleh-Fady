@@ -3,6 +3,12 @@ const url = '/getFruites';
 const container = oneElementGetter('.container');
 const form = oneElementGetter('.form');
 const input = oneElementGetter('.input');
+const loader = document.querySelector('.loader');
+
+const toggleDisplay = (element) => {
+  element.classList.toggle('hidden');
+};
+
 const elementCreator = (name) => document.createElement(name);
 
 const elementWithValue = (name, value) => {
@@ -64,14 +70,20 @@ fetchFrute(url, renderFruits);
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
+  if (input.value === '') return;
+  toggleDisplay(loader);
+
   container.textContent = '';
   searchFruit('/search', input.value, (response) => {
     const { data, image } = response;
     if (data.error) {
+      toggleDisplay(loader);
       container.textContent = '';
       container.textContent = `Sorry we couldnt find any fruit with this name ${input.value}`;
     } else {
       renderFruits(data, image);
+
+      toggleDisplay(loader);
     }
   });
 });
