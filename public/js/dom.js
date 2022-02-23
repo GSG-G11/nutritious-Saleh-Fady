@@ -82,7 +82,6 @@ form.addEventListener('submit', (e) => {
       container.textContent = `Sorry we couldnt find any fruit with this name ${input.value}`;
     } else {
       renderFruits(data, image);
-
       toggleDisplay(loader);
     }
   });

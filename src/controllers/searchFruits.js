@@ -2,7 +2,6 @@ const fetch = require('node-fetch');
 
 const searchFruits = (req, res) => {
   const fruitName = req.body.name;
-  console.log(req.body);
   const obj = {};
   fetch(`https://www.fruityvice.com/api/fruit/${fruitName}`)
     .then((response) => response.json())

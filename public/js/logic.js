@@ -14,7 +14,6 @@ const fetchFrute = (url, calback) => {
 };
 
 const searchFruit = (url, input, callback) => {
-  console.log(input);
   fetch(url, {
     headers: {
       Accept: 'application/json',
